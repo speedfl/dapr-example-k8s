@@ -1,0 +1,18 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: order
+spec:
+  type: pubsub.snssqs
+  version: v1
+  metadata:
+  - name: region
+    value: eu-west-3
+  - name: accessKey
+    secretKeyRef:
+      name: aws-order-secret
+      key: access-key
+  - name: secretKey
+    secretKeyRef:
+      name: aws-order-secret
+      key: secret-key

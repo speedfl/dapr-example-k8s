@@ -1,0 +1,4 @@
+image: speedfl/dapr-consumer-billing:1.0-SNAPSHOT
+
+global:
+  imageRegistry: null

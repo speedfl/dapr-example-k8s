@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name | quote }}
+  labels:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app.kubernetes.io/name: {{ .Chart.Name | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/part-of: {{ .Chart.Version | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Chart.Name | quote }}
+      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: {{ .Chart.Name | quote }}
+        dapr.io/app-port: "8080"
+        dapr.io/config: "order-configuration"
+        # dapr.io/log-level: "debug"
+      labels:
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        app.kubernetes.io/name: {{ .Chart.Name | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: {{ .Chart.Version | quote }}
+        app.kubernetes.io/component: "Deployment"
+    spec:
+      containers:
+        - name: "{{ .Release.Name }}-{{ .Chart.Name }}"
+          resources:
+            limits:
+                ephemeral-storage: 20Mi
+                memory: 256Mi
+            requests:
+                ephemeral-storage: 20Mi
+                cpu: 20m
+                memory: 256Mi
+          {{- if .Values.global.imageRegistry }}
+          image: "{{ .Values.global.imageRegistry }}/{{ .Values.image }}"
+          {{- else }}
+          image: {{ .Values.image | quote }}
+          {{- end }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              port: 8080
+              path: /q/health/live
+          readinessProbe:
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+            httpGet:
+              port: 8080
+              path: /q/health/ready

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: dapr-consumer-notification
+description: A Helm chart for dapr-consumer-notification
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

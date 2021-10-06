@@ -1,0 +1,4 @@
+image: speedfl/dapr-consumer-notification:1.0-SNAPSHOT
+
+global:
+  imageRegistry: null

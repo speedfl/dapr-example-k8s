@@ -1,0 +1,48 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: order
+spec:
+  type: pubsub.gcp.pubsub
+  version: v1
+  metadata:
+  - name: type
+    value: service_account
+  - name: projectId
+    secretKeyRef:
+      name: gcp-order-secret
+      key: project_id
+  - name: identityProjectId
+    secretKeyRef:
+      name: gcp-order-secret
+      key: identity_project_id
+  - name: privateKeyId
+    secretKeyRef:
+      name: gcp-order-secret
+      key: private_key_id
+  - name: clientEmail
+    secretKeyRef:
+      name: gcp-order-secret
+      key: client_email
+  - name: clientId
+    secretKeyRef:
+      name: gcp-order-secret
+      key: client_id
+  - name: authUri
+    value: https://accounts.google.com/o/oauth2/auth
+  - name: tokenUri
+    value: https://oauth2.googleapis.com/token
+  - name: authProviderX509CertUrl
+    value: https://www.googleapis.com/oauth2/v1/certs
+  - name: clientX509CertUrl
+    secretKeyRef:
+      name: gcp-order-secret
+      key: client_x509_cert_url
+  - name: privateKey
+    secretKeyRef:
+      name: gcp-order-secret
+      key: private_key
+  - name: disableEntityManagement
+    value: "false"
+  - name: enableMessageOrdering
+    value: "false"

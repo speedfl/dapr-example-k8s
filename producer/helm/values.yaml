@@ -1,0 +1,7 @@
+image: speedfl/dapr-producer:1.0-SNAPSHOT
+
+global:
+  imageRegistry: null
+
+ingress:
+  host: order.127.0.0.1.nip.io
