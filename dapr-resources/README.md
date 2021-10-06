@@ -143,7 +143,7 @@ gcloud iam service-accounts create dapr-pub-sub-test \
     --display-name="dapr-pub-sub-test"
 # Add the iam policy pubsub admin
 gcloud projects add-iam-policy-binding $PROJECT_ID \
-    --member="serviceAccount:dapr-pub-sub-test@${PROJECT_ID}19.iam.gserviceaccount.com" \
+    --member="serviceAccount:dapr-pub-sub-test@${PROJECT_ID}.iam.gserviceaccount.com" \
     --role="roles/pubsub.admin"
 # Create key
 gcloud iam service-accounts keys create key-file \
