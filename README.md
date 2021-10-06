@@ -77,7 +77,7 @@ Or you can do this on each repository.
 Now let's shoot our API:
 
 ```bash
-curl --location --request POST 'https://www.linkedin.com/redir/general-malware-page?url=http%3A%2F%2Forder%2e127%2e0%2e0%2e1%2enip%2eio%2Forder' \
+curl --location --request POST 'http://order.127.0.0.1.nip.io/order' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "total": {
