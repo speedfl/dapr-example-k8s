@@ -98,8 +98,6 @@ To create the service bus:
 az group create --location westeurope --name dapr-pub-sub-test
 # Create the ServiceBus Namespace
 az servicebus namespace create --location westeurope --name DaprTestPubSubNamespace --resource-group dapr-pub-sub-test
-# Create the Topic
-az servicebus topic create --name order --namespace-name DaprTestPubSubNamespace --resource-group dapr-pub-sub-test
 # Retrieve connection informations
 az servicebus namespace authorization-rule keys list --name RootManageSharedAccessKey --namespace-name DaprTestPubSubNamespace --resource-group dapr-pub-sub-test
 # {
